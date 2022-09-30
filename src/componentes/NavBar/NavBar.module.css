@@ -1,0 +1,29 @@
+.Link {
+  text-align: center;
+}
+.Link ul {
+  padding: 0;
+}
+.Link ul li {
+  list-style: none;
+  display: inline-block;
+  margin: 0 8px;
+}
+.Link ul li::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #000;
+  transition: width 0.3s;
+}
+.Link ul li:hover::after {
+  width: 100%;
+}
+.Link ul li a {
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+.Link ul li a:visited {
+  color: #000;
+}/*# sourceMappingURL=NavBar.module.css.map */
