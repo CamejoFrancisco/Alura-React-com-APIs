@@ -1,6 +1,7 @@
-import { Paper, Table, TableCell, TableContainer, TableHead, TableRow, TableBody } from "@mui/material";
+import { Button, Paper, Table, TableCell, TableContainer, TableHead, TableRow, TableBody } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import IRestaurante from "../../../interfaces/IRestaurante";
 
 const AdministracaoRestaurantes = () => {
@@ -13,6 +14,14 @@ const AdministracaoRestaurantes = () => {
             })
     }, [])
 
+    const excluir = (restauranteASerExluido: IRestaurante) => {
+        axios.delete(`http://localhost:8000/api/v2/restaurantes/${restauranteASerExluido.id}/`)
+            .then(() => {
+                const listaRestaurante = restaurantes.filter(restaurante => restaurante.id !== restauranteASerExluido.id)
+                setRestaurantes([...listaRestaurante]);
+            })
+    }
+
     return (
         <TableContainer component={Paper}>
             <Table>
@@ -20,6 +29,12 @@ const AdministracaoRestaurantes = () => {
                     <TableRow>
                         <TableCell>
                             Nome
+                        </TableCell>
+                        <TableCell>
+                            Editar
+                        </TableCell>
+                        <TableCell>
+                            Excluir
                         </TableCell>
                     </TableRow>
                 </TableHead>
@@ -29,6 +44,14 @@ const AdministracaoRestaurantes = () => {
                         <TableCell>
                             {restaurante.nome}
                         </TableCell>
+                        <TableCell>
+                            [ <Link to={`/admin/restaurantes/${restaurante.id}`}>editar</Link> ]
+                        </TableCell>
+                        <TableCell>
+                            <Button variant="outlined" color="error" onClick={() => excluir(restaurante)}>
+                                Excluir
+                            </Button>
+                        </TableCell> 
                     </TableRow>)}
 
                 </TableBody>
